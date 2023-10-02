@@ -19,16 +19,16 @@ def main():
 
     # Capture from the first USB Camera on the system
     camera = cs.startAutomaticCapture()
-    camera.setResolution(640, 480)
+    camera.setResolution(1920, 1080)
 
     # Get a CvSink. This will capture images from the camera
     cvSink = cs.getVideo()
 
     # Setup a CvSource. This will send images back to the Dashboard
-    outputStream = cs.putVideo("Processed", 640, 480)
+    outputStream = cs.putVideo("Processed", 1920, 1080)
 
     # Allocating new images is very expensive, always try to preallocate
-    img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
+    img = np.zeros(shape=(1080, 1920, 3), dtype=np.uint8)
 
     # Load the model and labels here
     print('Loading {} with {} labels.'.format(model, labels_file_path))
@@ -55,7 +55,7 @@ def main():
         cv2_im_rgb = cv2.cvtColor(cv2_im, cv2.COLOR_BGR2RGB)
         cv2_im_rgb = cv2.resize(cv2_im_rgb, inference_size)
         run_inference(interpreter, cv2_im_rgb.tobytes())
-        objs = get_objects(interpreter, 0.66)[:3]
+        objs = get_objects(interpreter, 0.66)
         cv2_im = append_objs_to_img(cv2_im, inference_size, objs, labels)
 
         # Calculate the processing performance by gathering Frames Per Second data.
