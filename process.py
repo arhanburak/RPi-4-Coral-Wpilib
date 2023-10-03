@@ -19,16 +19,16 @@ def main():
 
     # Capture from the first USB Camera on the system
     camera = cs.startAutomaticCapture()
-    camera.setResolution(1920, 1080)
+    camera.setResolution(640, 480)
 
     # Get a CvSink. This will capture images from the camera
     cvSink = cs.getVideo()
 
     # Setup a CvSource. This will send images back to the Dashboard
-    outputStream = cs.putVideo("Processed", 1920, 1080)
+    outputStream = cs.putVideo("Processed", 640, 480)
 
     # Allocating new images is very expensive, always try to preallocate
-    img = np.zeros(shape=(1080, 1920, 3), dtype=np.uint8)
+    img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
 
     # Load the model and labels here
     print('Loading {} with {} labels.'.format(model, labels_file_path))
